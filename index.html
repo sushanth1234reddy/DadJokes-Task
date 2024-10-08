@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="dadjokestab.jpeg" type="image/x-icon" />
+    <title>Dad Jokes</title>
+    <style>
+        .main{
+            text-align: center;
+        }
+        body{
+            background-color: black;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        h1,button,#joke{
+            color: white;
+        }
+        button{
+            background-color: rgb(170, 170, 29);
+            height: 35px;
+            width: 90px;
+            font-size: 15px;
+            font-weight: bold;
+            border: 2px solid rgb(222, 222, 93);
+            border-radius: 10px;
+        }
+        #joke{
+          background-color: rgb(52, 52, 6);
+          border: 2px solid beige;
+          border-radius: 10px;
+          padding: 8px 10px;
+          display: none;
+          margin-top: 20px;
+        }
+        @media  screen and (min-width:450px) {
+          #joke{
+            width: auto;
+            
+          }
+          body{
+            text-align: center;
+          }
+          
+        }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+    <h1>Dad Jokes <span>&#128516</span></h1>
+    <button id="btn">Get Joke</button> <br><br>
+    <p id="joke"></p>
+    </div>
+
+    <script>
+      let btn = document.getElementById("btn");
+      let joke= document.getElementById("joke");
+      btn.addEventListener("click", () => {
+        async function genJokes() {
+          try{
+            let data = await fetch("http://icanhazdadjoke.com", {
+            headers: {
+              Accept: "application/json",
+            },
+          });
+          let inn = await data.json();
+          joke.innerHTML=`${inn.joke}`;
+          joke.style.display="inline-block";
+          // console.log(inn.joke);// for debugging
+          }
+          catch(error){
+            console.log(error.message);
+
+          }
+        }
+        genJokes();
+      });
+    </script>
+  </body>
+</html>
